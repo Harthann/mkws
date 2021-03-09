@@ -1,9 +1,10 @@
 use std::io::ErrorKind;
 use std::env;
 use std::fs;
+use std::io::Write;
 
-mod filemk;
 mod makefile;
+mod add;
 
 fn create_dir(dir: &str) {
 	let path = env::current_dir();
@@ -18,21 +19,40 @@ fn create_dir(dir: &str) {
 			println!("{}: already exists", dir);
 		}
 	});
+}
 
+fn create_file(location: &str, file: &str, content: &[u8]) {
+	let path = match env::current_dir() {
+		Ok(_path) => _path,
+		Err(error) => panic!("Error while exporting directory {:?}", error),
+	};
+	let file = fs::OpenOptions::new().write(true)
+									.create_new(true)
+									.open(path.as_path().join(location).join(file));
+	let mut file = match file {
+		Ok(_file) => _file,
+		Err(error) => panic!("File already exists : {:?}", error),
+	};
+	file.write_all(content).expect("Couldn't write in file");
 }
 
 fn create_workspace() {
-	create_dir("include");
-	create_dir("srcs");
-	create_dir("lib");
-	create_dir("objs");
-	println!("{}", makefile::MAKEFILE);
-	println!("{}", filemk::FILEMK);
+	create_dir("test/include");
+	create_dir("test/include/template");
+	create_dir("test/include/classes");
+	create_dir("test/srcs");
+	create_dir("test/lib");
+	create_dir("test/objs");
+	create_file("test/", "Makefile", makefile::MAKEFILE);
+	create_file("test/", "file.mk", makefile::FILEMK);
 }
 
-fn add(args: &Vec<String>) {
-	for i in 0..args.len() {
-		println!("Entered add function {:?}", args[i]);
+fn options(args: &Vec<String>) {
+	if args[1] == "add" {
+		add::add(args);
+	}
+	else {
+		println!("Wrong options entered");
 	}
 }
 
@@ -42,6 +62,6 @@ fn main() {
 		create_workspace();
 	}
 	else {
-		add(&args);
+		options(&args);
 	}
 }
