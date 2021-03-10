@@ -1,4 +1,4 @@
-pub	const MAKEFILE: &[u8;3250] = b"# **************************************************************************** #
+pub	const MAKEFILE: &[u8] = b"# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -33,8 +33,8 @@ NAME = a.out
 
 include files.mk
 
-CLASSES_SRCS= $(addprefix $(CLASSES), .cpp)
-CLASSES_HEADERS= $(addprefix $(CLASSES), .hpp) $(INTERFACES)
+CLASSES_SRCS= $(addsuffix .cpp,$(CLASSES))
+CLASSES_HEADERS= $(addsuffix .hpp,$(CLASSES)) $(INTERFACES)
 INCLUDES_DIR = include/
 TEMPLATE_DIR = $(addprefix $(INCLUDES_DIR), template/)
 CLASSES_DIR = $(addprefix $(INCLUDES_DIR), classes/)
@@ -120,14 +120,14 @@ re : fclean all
 .PHONY : all clean fclean re f
 ";
 
-pub const FILEMK: &[u8] = b"SRC_FILE = 
+pub const FILEMK: &[u8] = b"SRC_FILE= main.cpp
 
-CLASSES=class
+CLASSES= 
 
-INTERFACES=
+INTERFACES= 
 
-TEMPLATES=
+TEMPLATES= 
 
-HEADERS=
+HEADERS= 
 ";
 

@@ -33,8 +33,8 @@ NAME = a.out
 
 include files.mk
 
-CLASSES_SRCS= $(addprefix $(CLASSES), .cpp)
-CLASSES_HEADERS= $(addprefix $(CLASSES), .hpp) $(INTERFACES)
+CLASSES_SRCS= $(addsuffix .cpp,$(CLASSES))
+CLASSES_HEADERS= $(addsuffix .hpp,$(CLASSES)) $(INTERFACES)
 INCLUDES_DIR = include/
 TEMPLATE_DIR = $(addprefix $(INCLUDES_DIR), template/)
 CLASSES_DIR = $(addprefix $(INCLUDES_DIR), classes/)
