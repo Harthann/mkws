@@ -32,10 +32,7 @@ fn create_file(location: &str, file: &str, content: &[u8]) {
 									.open(path.as_path().join(location).join(file));
 	let mut file = match file {
 		Ok(_file) => _file,
-		Err(error) => {
-			println!("File already exists : {:?}", error);
-			file
-		}
+		Err(error) => panic!("File already exists : {:?}", error),
 	};
 	file.write_all(content).expect("Couldn't write in file");
 }
@@ -61,8 +58,8 @@ fn options(args: &mut Vec<String>) {
 	for i in (1..args.len()).step_by(2) {
 		match args[i].as_str() {
 			"-s" => {
-				add::link_file(&mut args[i + 1], &"SRC_FILE= ".to_string());
 				file_name = args[i + 1].clone();
+				add::link_file(&mut args[i + 1], &"SRC_FILE= ".to_string());
 				base_dir = "srcs/".to_string();
 			},
 			"-d" => location = args[i + 1].clone(),
