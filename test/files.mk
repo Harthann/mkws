@@ -1,19 +1,10 @@
-SRC_FILE= oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
-oui.cpp \
+SRC_FILE= allo.cpp \
 test.cpp \
-main.cpp
-
+oui.cpp \
+allo.cpp \
+test.cpp \
+oui.cpp \
+main.cpp\
 CLASSES= 
 
 INTERFACES= 
