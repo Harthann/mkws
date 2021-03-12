@@ -30,14 +30,3 @@ pub fn link_file(fname: &mut String, pattern: &String) {
 	let mut file = get_file_mk();
 	file.write_all(content.as_bytes()).expect("Error writing in file");
 }
-
-pub fn add(args: &mut Vec<String>) {
-	match args[2].as_str() {
-		"class" => link_file(&mut args[3], &"CLASSES= ".to_string()),
-		"interface" => link_file(&mut args[3], &"INTERFACES= ".to_string()),
-		"template" => link_file(&mut args[3], &"TEMPLATES= ".to_string()),
-		"src" => link_file(&mut args[3], &"SRC_FILE= ".to_string()),
-		"header" => link_file(&mut args[3], &"HEADERS= ".to_string()),
-		_ => println!("Wrong file type")
-	};
-}
