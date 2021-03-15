@@ -67,7 +67,7 @@ fn options(args: &mut Vec<String>) -> Result<Vec<SFile>, &'static str> {
 			content : "".to_string(),
 			ftype : "ignore".to_string(),
 		};
-		if i + 1 >= args.len() {
+		if i + 1 >= args.len() && args[i].as_str() != "--help" {
 			println!("Missing argument for option : {}", args[i]);
 			return Err("Aborting");
 		}
@@ -115,6 +115,7 @@ fn options(args: &mut Vec<String>) -> Result<Vec<SFile>, &'static str> {
 				file_dir::create_dir(&*args[i + 1]);
 				file_dir::create_workspace(&args[i + 1]);
 			},
+			"--help" => print_options(&args[i]),
 			_ => print_options(&args[i]),
 		}
 		list.push(files.clone());
